@@ -1,8 +1,8 @@
 {-|
 Module      : Solver
 Description : Solves a predicate tree to find the simplest solution
-Copyright   : (c) Nico Naus, 2021
-Maintainer  : nico.naus@ou.nl
+Copyright   : (c) Nico Naus, 2023
+Maintainer  : niconaus@vt.edu
 Stability   : experimental
 This module defines the functions to search though a predicate tree and find the
 simplest predicate that is satisfiable

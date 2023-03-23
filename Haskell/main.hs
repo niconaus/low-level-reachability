@@ -27,6 +27,21 @@ main = do
 example1 :: Maybe Predicate
 example1 = uncurry precondition longDiv
 
+
+-- Indirect jump example
+
+example2 :: [Predicate]
+example2 = exploits indirectJump
+
+-- Quicksort example
+
+qsortExample :: [Predicate]
+qsortExample = exploits faultyQsort
+
+-- Karatsuba example
+
+karatsubaExample = exploits 
+
 -- for interactive use
 exploits :: (Prog,Predicate) -> [Predicate]
 exploits (prog,p) = filter (/=Expr (Not true)) $ deforest (fastheur (++)) exploitTree

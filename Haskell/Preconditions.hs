@@ -1,8 +1,8 @@
 {-|
 Module      : Preconditions
 Description : Precondition generation module
-Copyright   : (c) Nico Naus, 2021
-Maintainer  : nico.naus@ou.nl
+Copyright   : (c) Nico Naus, 2023
+Maintainer  : niconaus@vt.edu
 Stability   : experimental
 This module defines the precondition generation functions
 -}

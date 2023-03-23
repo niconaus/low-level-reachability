@@ -1,7 +1,7 @@
 {-|
 Module      : Interpreter
 Description : Interpreter for Jump Programs
-Copyright   : (c) Marc Schoolderman, 2021
+Copyright   : (c) Marc Schoolderman, 2023
 Maintainer  : nico.naus@ou.nl
 Stability   : experimental
 This module defines an interpreter (i.e. executable semantics) to play around with Jump programs
@@ -48,17 +48,17 @@ run :: Monad m => Prog -> Oracle m -> m State
 run (n, blocks) oracle = runB (blocks!n) (Data.Map.empty, Data.Map.empty)
   where runB Exit             = return
         runB (Seq s b)        = (>>= runB b) . runS s
-        runB (Jump e l1 l2)   = (\st->blocks!if eval e st/=0 then l1 else l2) >>= runB
+        runB (CJump e l1 l2)   = (\st->blocks!if eval e st/=0 then l1 else l2) >>= runB
         runB (IndirectJump e) = (\st->blocks!eval e st) >>= runB
 
         runS (Assign v e)           st@(var,mem) = return (insert v (eval e st) var, mem)
         runS (NDAssign v e   )      st@(var,mem) = do i <- oracle v e st; return (insert v i var, mem)
-        runS (Store (Region e _) v) st@(var,mem) = return (var, insert (eval e st) (eval (Var v) st) mem)
+        runS (Store e v) st@(var,mem) = return (var, insert (eval e st) (eval (Var v) st) mem)
  
 eval :: E -> State -> Int
 eval (Num k) _     = k
 eval (Var k) (v,_) = v!k
-eval (Deref (Region e _)) st@(_,m) = m!eval e st
+eval (Deref e) st@(_,m) = m!eval e st
 eval (Not e) st = if eval e st == 0 then -1 else 0
 eval (App a op b) st = perform op (eval a st) (eval b st)
   where perform :: Op -> Int -> Int -> Int

@@ -1,4 +1,13 @@
 {-# LANGUAGE FlexibleInstances #-}
+{-|
+Module      : While
+Description : While to jump
+Copyright   : (c) Marc Schoolderman, 2023
+Maintainer  : niconaus@vt.edu
+Stability   : experimental
+This module defines a simple while-language, and a compiler from while to jump
+-}
+
 module While (W(..), jlang, thenDo, elseDo) where
 
 import Types
